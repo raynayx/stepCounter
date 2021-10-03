@@ -18,7 +18,7 @@ class Analyzer
 
     private:
         unsigned long steps;
-        bool countStep;
+        volatile bool countStep;
         double *data;
 };
 

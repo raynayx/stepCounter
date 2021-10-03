@@ -25,9 +25,9 @@ void Filter::movingAverage(axes* X,axes* Y,int size,int window)
             Y[i].y += X[i - j].y;
             Y[i].z += X[i - j].z;
         }
-        Y[i].x = (Y[i].x) / window;
-        Y[i].y = (Y[i].y) / window;
-        Y[i].z = (Y[i].z) / window;
+        Y[i].x = (Y[i].x) / (float)window;
+        Y[i].y = (Y[i].y) / (float)window;
+        Y[i].z = (Y[i].z) / (float)window;
     }
 }
 
