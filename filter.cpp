@@ -18,16 +18,16 @@ void Filter::movingAverage(axes* X,axes* Y,int size,int window)
 
     for (int i = window - 1; i < size ; i++)
     {
+        axes sum = {0.0,0.0,0.0};
         for (int j = 0; j < window ; j++)
         {
-            
-            Y[i].x += X[i - j].x;
-            Y[i].y += X[i - j].y;
-            Y[i].z += X[i - j].z;
+            sum.x += X[i - j].x;
+            sum.y += X[i - j].y;
+            sum.z += X[i - j].z;
         }
-        Y[i].x = (Y[i].x) / (float)window;
-        Y[i].y = (Y[i].y) / (float)window;
-        Y[i].z = (Y[i].z) / (float)window;
+        Y[i].x = (sum.x) / (float)window;
+        Y[i].y = (sum.y) / (float)window;
+        Y[i].z = (sum.z) / (float)window;
     }
 }
 

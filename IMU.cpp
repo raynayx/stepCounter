@@ -29,7 +29,7 @@ void IMU::setupSensor()
     // 1 = 10 Hz    4 = 238 Hz
     // 2 = 50 Hz    5 = 476 Hz
     // 3 = 119 Hz   6 = 952 Hz
-    lsm.settings.accel.sampleRate = 2;
+    lsm.settings.accel.sampleRate = 3;
 
 
     lsm.begin();

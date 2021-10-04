@@ -16,6 +16,7 @@ axes samples[maxSize];    //new data set in circular buffer
 axes result[maxSize] = {0};   // result from moving average
 axes userAccel[maxSize];
 double dotP[maxSize];     //find dotP(movement in the direction of gravity)
+// axes ones = {1.0,1.0,1.0};
 
 //IMU object
 IMU imu;
@@ -28,15 +29,17 @@ void setup()
     Serial.begin(115200);
     pinMode(LED_BUILTIN,OUTPUT);
     imu.setupSensor();
-     //fill buffer
-    for(int i = 0;i < maxSize; i++)
-    {
-        samples[i] = imu.getAccelData();
-    }
+
 }
 
 void loop()
-{
+{   
+    //fill buffer
+    for(int i = 0;i < maxSize; i++)
+    {
+        samples[i] = imu.getAccelData();
+        // samples[i] = ones;
+    }
    
     f.movingAverage(samples,result,maxSize,WINDOW);
     f.getUserAccel(samples,result,userAccel,maxSize);
@@ -65,5 +68,5 @@ void loop()
         Serial.print("Number of Steps\t"); Serial.println(a.getSteps());
 
     #endif
-    samples[i] = imu.getAccelData();
+    
 }

@@ -4,8 +4,8 @@
 #include <Arduino.h>
 
 #define maxSize 50
-#define THRESHOLD 1
-#define WINDOW 5
+#define THRESHOLD 1.00
+#define WINDOW 3
 
 
 #define TAB Serial.print(F("\t"))
