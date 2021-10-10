@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 #define maxSize 50
-#define THRESHOLD 1.00
+#define THRESHOLD 0.80
 #define WINDOW 3
 
 
