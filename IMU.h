@@ -25,11 +25,10 @@ class IMU
         void setupSensor();
         //configure interrupts
         void configureLSM9DS1Interrupts();
-        // print accel data
-        void showData();
         // get accel data
         axes getAccelData();
         //fill buffer
+        void fillBuffer(CB &buff);
         
 
     private:  

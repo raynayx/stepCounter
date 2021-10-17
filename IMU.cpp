@@ -69,24 +69,6 @@ void IMU::configureLSM9DS1Interrupts()
   
 }
 
-void IMU::showData()
-{
-    axes A;
-    if(lsm.accelAvailable())
-    {
-        lsm.readAccel();
-    }
-    A.x = X;
-    A.y = Y;
-    A.z = Z;
-
-    #ifdef DEBUG
-        Serial.print("x "); Serial.print(A.x); TAB;
-        Serial.print("y "); Serial.print(A.y); TAB;
-        Serial.print("z "); Serial.println(A.z);
-    #endif
-}  
-
 axes IMU::getAccelData()
 {
     axes A;
@@ -101,7 +83,18 @@ axes IMU::getAccelData()
     return A;
 }
 
-
+void IMU::fillBuffer(CB &buff)
+{
+    if(buff.isFull())
+    {
+        buff.push(getAccelData());
+        return;
+    }
+    while(!buff.isFull())
+    {
+        buff.push(getAccelData());
+    }
+}
 
 
 

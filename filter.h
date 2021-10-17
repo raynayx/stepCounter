@@ -17,11 +17,15 @@ class Filter
     public:
         
         void movingAverage(axes* X,axes* Y,int size,int window);
-        //
+        void movingAverage(CB& X,CB& Y,int window);
         void getUserAccel(axes* totalAccel,axes* gravityAccel,axes* userAccel,int size);
+        void getUserAccel(CB& totalAccel,CB& gravityAccel,CB& userAccel);
         void dotProduct(axes* userAccel, axes* gravityAccel,double *dp,int size);
+        void dotProduct(CB &userAccel,CB &gravityAccel,double *dp);
+        void movingAverage(double *X,double *Y, int size,int window);
 
     private:
+        bool first = true;
 
 };
 

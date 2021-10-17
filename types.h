@@ -2,9 +2,11 @@
 #define TYPES_H_
 
 #include <Arduino.h>
+#include <CircularBuffer.h>
+
 
 #define maxSize 50
-#define THRESHOLD 0.80
+#define THRESHOLD 0.1
 #define WINDOW 3
 
 
@@ -23,6 +25,8 @@ struct COEFFICIENTS
     double beta[3];
 };
 
+typedef CircularBuffer<axes,maxSize> CB;
+extern CB buffer;
 
 
 
