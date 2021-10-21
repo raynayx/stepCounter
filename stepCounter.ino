@@ -36,10 +36,10 @@ void setup()
 void loop()
 {  
     imu.fillBuffer(totalAccel);
-    f.movingAverage(totalAccel,gravityAccel,WINDOW);
-    f.getUserAccel(totalAccel,gravityAccel,userAccel);
-    f.dotProduct(userAccel,gravityAccel,dotP);
-    f.movingAverage(dotP,final,maxSize,WINDOW);
+    // f.movingAverage(totalAccel,gravityAccel,WINDOW);
+    // f.getUserAccel(totalAccel,gravityAccel,userAccel);
+    // f.dotProduct(userAccel,gravityAccel,dotP);
+    // f.movingAverage(dotP,final,maxSize,WINDOW);
 
     a.countSteps();
 
@@ -58,7 +58,7 @@ void loop()
         //  Serial.print(buffer[i].y);
         //   TAB;
         // Serial.print("z ");
-        //  Serial.print(totalAccel[i].z);
+         Serial.println(totalAccel[i].z);
         //  TAB;
 
         // // Serial.print("||Rx ");
@@ -77,12 +77,12 @@ void loop()
         // Serial.print(userAccel[i].z);
         // TAB;
         // Serial.print("1-D ");
-        Serial.print(dotP[i],6);
-        TAB;
-        Serial.print(final[i],6);
-        TAB;
-        // Serial.print("Number of Steps\t"); 
-        Serial.println(a.getSteps());
+        // Serial.print(dotP[i],6);
+        // TAB;
+        // Serial.print(final[i],6);
+        // TAB;
+        // // Serial.print("Number of Steps\t"); 
+        // Serial.println(a.getSteps());
 
     #endif
 
