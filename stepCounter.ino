@@ -28,6 +28,7 @@ bool first = true;
 void setup()
 {
     Serial.begin(115200);
+
     pinMode(LED_BUILTIN,OUTPUT);
     imu.setupSensor();
 
@@ -51,15 +52,15 @@ void loop()
 
     #ifdef DEBUG
         // Serial.print(i);TAB;
-        // Serial.print("x ");
-        // Serial.print(buffer[i].x);
-        //  TAB;
-        // Serial.print("y ");
-        //  Serial.print(buffer[i].y);
-        //   TAB;
-        // Serial.print("z ");
+        Serial.print("x ");
+        Serial.print(totalAccel[i].x);
+         TAB;
+        Serial.print("y ");
+         Serial.print(totalAccel[i].y);
+          TAB;
+        Serial.print("z ");
          Serial.println(totalAccel[i].z);
-        //  TAB;
+         TAB;
 
         // // Serial.print("||Rx ");
         // Serial.println(smoothed[i].x);
@@ -82,7 +83,7 @@ void loop()
         // Serial.print(final[i],6);
         // TAB;
         // // Serial.print("Number of Steps\t"); 
-        // Serial.println(a.getSteps());
+        Serial.println(a.getSteps());
 
     #endif
 

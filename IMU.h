@@ -48,7 +48,11 @@ class IMU
 
     private:  
         //default I2C address is 0x68; 
-        MPU6050 mpu;  
+        MPU6050 mpu;
+
+        const int offset = 16384;
+
+          
 };
 
 #endif

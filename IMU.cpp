@@ -10,6 +10,7 @@ void IMU::setupSensor()
     Wire.begin();
 
     mpu.initialize();
+    mpu.setFullScaleAccelRange(0);
 
     if(!mpu.testConnection())
     {
@@ -27,11 +28,11 @@ axes IMU::getAccelData()
 {
     axes A;
 
-    int16_t a,b,c;
-    mpu.getAcceleration(&a,&b,&c);
-    A.x = a;
-    A.y = b;
-    A.z = c;
+    int16_t x,y,z;
+    mpu.getAcceleration(&x,&y,&z);
+    A.x = x/(float)offset;
+    A.y = y/(float)offset;;
+    A.z = z/(float)offset;;
     return A;
 }
 
