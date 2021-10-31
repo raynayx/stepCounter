@@ -18,7 +18,7 @@ void Filter::movingAverage(axes* X,axes* Y,int size,int window)
 
     for (int i = window - 1; i < size ; i++)
     {
-        axes sum = {0.0,0.0,0.0};
+        axes sum = {};
         for (int j = 0; j < window ; j++)
         {
             sum.x += X[i - j].x;
@@ -36,13 +36,14 @@ void Filter::movingAverage(CB& X,CB& Y,int window)
 {	
 	if(first)
 	{
+        axes sum;
 	for (int i = 0; i < window - 1; i++)
 	{
-		Y.push({0.0,0.0,0.0});
+		Y.push(sum);
 	}
 	for (int i = window - 1; i < X.size() ; i++)
 	{
-		axes sum = {0.0,0.0,0.0};
+		axes sum;
 		for (int j = 0; j < window ; j++)
 		{
 			sum.x += X[i - j].x;
@@ -57,7 +58,7 @@ void Filter::movingAverage(CB& X,CB& Y,int window)
 	first = false;
 	return;
 	}
-	axes sum = {0.0,0.0,0.0};
+	axes sum;
 	for (int j = 1; j <= window ; j++)
 	{
 		sum.x += X[maxSize - j].x;
