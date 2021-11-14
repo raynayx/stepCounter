@@ -4,6 +4,7 @@
 */
 #include <Arduino.h>
 
+#include "UI.h"
 #include "IMU.h"
 #include "filter.h"
 #include "analyzer.h"
@@ -32,6 +33,8 @@ void setup()
     Serial.begin(115200);
     
     imu.setupSensor();
+    setupScreen();
+    welcomeScreen();
 
 
 }
