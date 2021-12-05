@@ -8,6 +8,7 @@
 #include "IMU.h"
 #include "filter.h"
 #include "analyzer.h"
+#include "debounceButton.h"
 
 #define DEBUG
 
@@ -26,7 +27,7 @@ Filter f;
 Analyzer a(final);
 // int i = 0;
 // bool first = true;
-
+BTN nav(7);
 
 void setup()
 {
@@ -51,5 +52,10 @@ void loop()
         Serial.println(a.getSteps());
 
     #endif
+
+    if(nav.pressed())
+    {
+        Serial.println("NAV pressed");
+    }
 
 }
