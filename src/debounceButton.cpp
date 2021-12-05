@@ -1,6 +1,6 @@
 #include "debounceButton.h"
 
-BTN::BTN(uint8_t btnPin):btnPin{btnPin}
+void BTN::init(uint8_t btnPin)
 {
     pinMode(btnPin,INPUT_PULLUP);
     readBtn = digitalRead(btnPin);

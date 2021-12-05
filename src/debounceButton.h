@@ -5,7 +5,7 @@
 class BTN
 {
     public:
-        BTN(uint8_t btnPin);
+        void init(uint8_t btnPin);
         bool pressed();
     private:
         bool btnLastState = HIGH;

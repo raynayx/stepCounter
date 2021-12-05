@@ -27,13 +27,14 @@ Filter f;
 Analyzer a(final);
 // int i = 0;
 // bool first = true;
-BTN nav(7);
+BTN nav;
 
 void setup()
 {
     Serial.begin(115200);
     
     imu.setupSensor();
+    nav.init(7);
     // setupScreen();
     // welcomeScreen();
 
