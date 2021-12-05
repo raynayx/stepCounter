@@ -1,9 +1,8 @@
 #include "UI.h"
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,
-  OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
+/*
 
-void setupScreen()
+void UI::setupScreen()
 {
     if(!display.begin(SSD1306_SWITCHCAPVCC)) 
     {
@@ -33,3 +32,5 @@ void welcomeScreen()
     delay(1500);
     
 }
+
+*/

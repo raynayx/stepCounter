@@ -33,8 +33,8 @@ void setup()
     Serial.begin(115200);
     
     imu.setupSensor();
-    setupScreen();
-    welcomeScreen();
+    // setupScreen();
+    // welcomeScreen();
 
 
 }
