@@ -1,6 +1,6 @@
 #include "IMU.h"
 
-#define DEBUG
+// #define DEBUG
 
 
 
@@ -19,7 +19,9 @@ void IMU::setupSensor()
 
     if(!mpu.testConnection())
     {
-        Serial.println("MPU6050 not available");
+        #ifdef DEBUG
+            Serial.println("MPU6050 not available");
+        #endif
         while(1);
     } 
 }

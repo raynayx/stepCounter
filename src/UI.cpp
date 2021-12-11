@@ -17,11 +17,10 @@ void UI::setupScreen()
     display.cp437(true);         // Use full 256 char 'Code Page 437' font
     display.println("PEDOMETER");
     display.display();
-    delay(1000);
+    delay(100);
     display.clearDisplay();
     display.setTextColor(SSD1306_WHITE);
-    Serial.println("SCREEN SETUP DONE");
-    delay(1000);
+    delay(100);
 }
 
 
@@ -35,7 +34,7 @@ void UI::welcomeScreen()
     display.display();
     display.setCursor(0,0);
     display.invertDisplay(false);
-    delay(1500);
+    delay(700);
     
 }
 
@@ -54,6 +53,7 @@ void UI::menu()
     String steps = F("STEPS");
     String raw_data = F("RAW DATA");
     String help = F("HELP");
+    String off = F("TURN OFF SCREEN");
 
     if(currentPage != ePage::home)
         return;
@@ -71,6 +71,8 @@ void UI::menu()
             display.print(raw_data);
             display.setCursor(5,32);
             display.print(help);
+            display.setCursor(5,46);
+            display.print(off);
             display.display();
         }
         break;
@@ -86,10 +88,12 @@ void UI::menu()
             display.print(raw_data);
             display.setCursor(5,32);
             display.print(help);
+            display.setCursor(5,46);
+            display.print(off);
             display.display();
         }
         break;    
-    case eMenuItem::off:
+    case eMenuItem::help:
         {
             display.clearDisplay();
             display.drawRect(0,29,SCREEN_WIDTH,14,SSD1306_WHITE);
@@ -101,7 +105,26 @@ void UI::menu()
             display.print(raw_data);
             display.setCursor(5,32);
             display.print(help);
-            display.display();   
+            display.setCursor(5,46);
+            display.print(off);
+            display.display();
+        }
+        break;
+        case eMenuItem::off:
+        {
+            display.clearDisplay();
+            display.drawRect(0,43,SCREEN_WIDTH,14,SSD1306_WHITE);
+            display.setTextSize(1);
+            display.setCursor(5,4);
+            display.cp437(true);
+            display.print(steps);
+            display.setCursor(5,18);
+            display.print(raw_data);
+            display.setCursor(5,32);
+            display.print(help);
+            display.setCursor(5,46);
+            display.print(off);
+            display.display();
         }
         break;
     default:
@@ -114,7 +137,7 @@ void UI::menu()
 void UI::showSteps(int numOfSteps)
 {
     display.clearDisplay();
-    display.drawRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT,0xfff);
+    display.drawRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT,SSD1306_WHITE);
     display.setTextSize(1);
     display.setCursor(5,5);
     display.cp437(true);
@@ -129,13 +152,18 @@ void UI::showSteps(int numOfSteps)
 void UI::showRawData(float x, float y, float z)
 {
     display.clearDisplay();
-    display.drawRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT,0xfff);
+    display.drawRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT,SSD1306_WHITE);
     display.setTextSize(1);
     display.setCursor(5,5);
     display.cp437(true);
     display.print("Raw data(g):\n");
-    display.setTextSize(2);
-    display.printf("X: %f\nY: %f\nZ: %f",x,y,z);
+    display.setTextSize(1);
+    display.setCursor(5,15);
+    display.printf("X: %f",x);
+    display.setCursor(5,30);
+    display.printf("Y: %f",y);
+    display.setCursor(5,45);
+    display.printf("Z: %f",z);
     display.display();
 
 }
@@ -147,6 +175,10 @@ void UI::moveMenu()
         selection = eMenuItem::rawData;
     }
     else if(selection == eMenuItem::rawData)
+    {
+        selection = eMenuItem::help;
+    }
+    else if(selection == eMenuItem::help)
     {
         selection = eMenuItem::off;
     }
@@ -161,35 +193,80 @@ void UI::switchPage()
     if(selection == eMenuItem::steps)
     {
         currentPage = ePage::steps;
-        showSteps(1);
     }
     else if(selection == eMenuItem::rawData)
     {
         currentPage = ePage::rawData;
-        refreshPage();
     }
-    else
+    else if(selection == eMenuItem::help)
     {
-        currentPage = ePage::home;
+        currentPage = ePage::help;
+    }
+    else if(selection == eMenuItem::off)
+    {
+        screenOff();
     }
 }
 void UI::goHome()
 {
-    if(currentPage == ePage::steps || currentPage == ePage::rawData)
+    if(currentPage == ePage::steps || currentPage == ePage::rawData || currentPage == ePage::help)
     {
         menu();
         currentPage = ePage::home;
     }
 }
 
-void UI::refreshPage()
+void UI::showPage(axes rawData,int steps)
 {
-    if(currentPage == ePage::rawData)
+    switch (currentPage)
     {
-        showRawData(1.f,1.f,1.f);
-    }
-    if(currentPage == ePage::steps)
+    case ePage::steps:
     {
-        showSteps(1);
+        showSteps(steps);
+        break;
     }
+    case ePage::rawData:
+    {
+        showRawData(rawData.x,rawData.y,rawData.z);
+        break;
+    }
+    case ePage::help:
+    {
+        showHelp();
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+void UI::showHelp()
+{
+    display.clearDisplay();
+    display.drawRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT,SSD1306_WHITE);
+    display.setTextSize(1);
+    display.setCursor(5,5);
+    display.cp437(true);
+    display.print("HELP");
+    display.setTextSize(1);
+    display.setCursor(5,15);
+    display.print(F("Welcome to Pedometer"));
+    display.setCursor(5,25);
+    display.print(F("help.Since you are"));
+    display.setCursor(5,35);
+    display.print(F("here, you know how   to move. Bye bye!"));
+    display.display();
+}
+
+
+void UI::screenOff()
+{
+    display.ssd1306_command(SSD1306_DISPLAYOFF);
+    screenState = false;
+
+}
+void UI::screenOn()
+{
+    display.ssd1306_command(SSD1306_DISPLAYON);
+    screenState = true;
 }

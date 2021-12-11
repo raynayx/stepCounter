@@ -26,25 +26,27 @@ extern Adafruit_SSD1306 display;
 class UI
 {
     private:
-        enum class eMenuItem {steps,rawData,off};
-        enum class ePage {home,steps,rawData};
+        enum class eMenuItem {steps,rawData,help,off};
+        enum class ePage {home,steps,rawData,help};
 
         eMenuItem selection = eMenuItem::steps;
         ePage currentPage = ePage::home;
 
     public:
+        bool screenState = true;
         void setupScreen();
         void welcomeScreen();
         void menu();
         void moveMenu();
         void switchPage();
-        void refreshPage();
+        void showPage(axes rawData,int steps);
         void goHome();
         void screenOn();
         void screenOff();
         void print(const char* text,int cursorPosX,int cursorPosY,int textSize,bool cls);
         void showSteps(int numOfSteps);
         void showRawData(float x,float y, float z);
+        void showHelp();
 };
 
 #endif

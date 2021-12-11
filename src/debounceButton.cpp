@@ -8,8 +8,12 @@ void BTN::init(uint8_t btnPin)
 
 bool BTN::pressed()
 {   
-    if(digitalRead(btnPin)) return false;
-    
+    readBtn = digitalRead(btnPin);
+    if(readBtn) 
+    {
+        btnLastState = readBtn;
+        return false;
+    }
     if(digitalRead(btnPin) != btnLastState)
     {
         btnDebounce = millis();
